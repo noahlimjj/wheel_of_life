@@ -1,0 +1,29 @@
+body {
+  font-family: system-ui, sans-serif;
+  background: #f7f7fa;
+  margin: 0;
+  padding: 0;
+}
+
+h1, h2 {
+  color: #333;
+}
+
+input, button {
+  font-size: 1rem;
+  padding: 0.4em 0.6em;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+button {
+  background: #8884d8;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+button:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+} 
