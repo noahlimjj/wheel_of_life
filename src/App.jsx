@@ -1,21 +1,11 @@
-import React, { useState } from 'react';
-import Login from './components/Login';
+import React from 'react';
 import WheelOfLife from './components/WheelOfLife';
 
-export default function App() {
-  const [user, setUser] = useState(null);
+// Import Tailwind CSS for styling (assuming it's set up)
+import './index.css';
 
+export default function App() {
   return (
-    <div>
-      <h1 style={{ textAlign: 'center', marginTop: 24 }}>Wheel of Life App</h1>
-      {!user ? (
-        <Login onUserChanged={setUser} />
-      ) : (
-        <>
-          <Login onUserChanged={setUser} />
-          <WheelOfLife user={user} />
-        </>
-      )}
-    </div>
+    <WheelOfLife />
   );
 } 

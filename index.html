@@ -1,12 +1,1917 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Wheel of Life App</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
-</html> 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wheel of Life - Goals Dashboard</title>
+    <style>
+        :root {
+  /* Primitive Color Tokens */
+  --color-white: rgba(255, 255, 255, 1);
+  --color-black: rgba(0, 0, 0, 1);
+  --color-cream-50: rgba(252, 252, 249, 1);
+  --color-cream-100: rgba(255, 255, 253, 1);
+  --color-gray-200: rgba(245, 245, 245, 1);
+  --color-gray-300: rgba(167, 169, 169, 1);
+  --color-gray-400: rgba(119, 124, 124, 1);
+  --color-slate-500: rgba(98, 108, 113, 1);
+  --color-brown-600: rgba(94, 82, 64, 1);
+  --color-charcoal-700: rgba(31, 33, 33, 1);
+  --color-charcoal-800: rgba(38, 40, 40, 1);
+  --color-slate-900: rgba(19, 52, 59, 1);
+  --color-teal-300: rgba(50, 184, 198, 1);
+  --color-teal-400: rgba(45, 166, 178, 1);
+  --color-teal-500: rgba(33, 128, 141, 1);
+  --color-teal-600: rgba(29, 116, 128, 1);
+  --color-teal-700: rgba(26, 104, 115, 1);
+  --color-teal-800: rgba(41, 150, 161, 1);
+  --color-red-400: rgba(255, 84, 89, 1);
+  --color-red-500: rgba(192, 21, 47, 1);
+  --color-orange-400: rgba(230, 129, 97, 1);
+  --color-orange-500: rgba(168, 75, 47, 1);
+
+  /* RGB versions for opacity control */
+  --color-brown-600-rgb: 94, 82, 64;
+  --color-teal-500-rgb: 33, 128, 141;
+  --color-slate-900-rgb: 19, 52, 59;
+  --color-slate-500-rgb: 98, 108, 113;
+  --color-red-500-rgb: 192, 21, 47;
+  --color-red-400-rgb: 255, 84, 89;
+  --color-orange-500-rgb: 168, 75, 47;
+  --color-orange-400-rgb: 230, 129, 97;
+
+  /* Background color tokens (Light Mode) */
+  --color-bg-1: rgba(59, 130, 246, 0.08); /* Light blue */
+  --color-bg-2: rgba(245, 158, 11, 0.08); /* Light yellow */
+  --color-bg-3: rgba(34, 197, 94, 0.08); /* Light green */
+  --color-bg-4: rgba(239, 68, 68, 0.08); /* Light red */
+  --color-bg-5: rgba(147, 51, 234, 0.08); /* Light purple */
+  --color-bg-6: rgba(249, 115, 22, 0.08); /* Light orange */
+  --color-bg-7: rgba(236, 72, 153, 0.08); /* Light pink */
+  --color-bg-8: rgba(6, 182, 212, 0.08); /* Light cyan */
+
+  /* Semantic Color Tokens (Light Mode) */
+  --color-background: var(--color-cream-50);
+  --color-surface: var(--color-cream-100);
+  --color-text: var(--color-slate-900);
+  --color-text-secondary: var(--color-slate-500);
+  --color-primary: var(--color-teal-500);
+  --color-primary-hover: var(--color-teal-600);
+  --color-primary-active: var(--color-teal-700);
+  --color-secondary: rgba(var(--color-brown-600-rgb), 0.12);
+  --color-secondary-hover: rgba(var(--color-brown-600-rgb), 0.2);
+  --color-secondary-active: rgba(var(--color-brown-600-rgb), 0.25);
+  --color-border: rgba(var(--color-brown-600-rgb), 0.2);
+  --color-btn-primary-text: var(--color-cream-50);
+  --color-card-border: rgba(var(--color-brown-600-rgb), 0.12);
+  --color-card-border-inner: rgba(var(--color-brown-600-rgb), 0.12);
+  --color-error: var(--color-red-500);
+  --color-success: var(--color-teal-500);
+  --color-warning: var(--color-orange-500);
+  --color-info: var(--color-slate-500);
+  --color-focus-ring: rgba(var(--color-teal-500-rgb), 0.4);
+  --color-select-caret: rgba(var(--color-slate-900-rgb), 0.8);
+
+  /* Common style patterns */
+  --focus-ring: 0 0 0 3px var(--color-focus-ring);
+  --focus-outline: 2px solid var(--color-primary);
+  --status-bg-opacity: 0.15;
+  --status-border-opacity: 0.25;
+  --select-caret-light: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23134252' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  --select-caret-dark: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23f5f5f5' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+
+  /* RGB versions for opacity control */
+  --color-success-rgb: 33, 128, 141;
+  --color-error-rgb: 192, 21, 47;
+  --color-warning-rgb: 168, 75, 47;
+  --color-info-rgb: 98, 108, 113;
+
+  /* Typography */
+  --font-family-base: "FKGroteskNeue", "Geist", "Inter", -apple-system,
+    BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-family-mono: "Berkeley Mono", ui-monospace, SFMono-Regular, Menlo,
+    Monaco, Consolas, monospace;
+  --font-size-xs: 11px;
+  --font-size-sm: 12px;
+  --font-size-base: 14px;
+  --font-size-md: 14px;
+  --font-size-lg: 16px;
+  --font-size-xl: 18px;
+  --font-size-2xl: 20px;
+  --font-size-3xl: 24px;
+  --font-size-4xl: 30px;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 550;
+  --font-weight-bold: 600;
+  --line-height-tight: 1.2;
+  --line-height-normal: 1.5;
+  --letter-spacing-tight: -0.01em;
+
+  /* Spacing */
+  --space-0: 0;
+  --space-1: 1px;
+  --space-2: 2px;
+  --space-4: 4px;
+  --space-6: 6px;
+  --space-8: 8px;
+  --space-10: 10px;
+  --space-12: 12px;
+  --space-16: 16px;
+  --space-20: 20px;
+  --space-24: 24px;
+  --space-32: 32px;
+
+  /* Border Radius */
+  --radius-sm: 6px;
+  --radius-base: 8px;
+  --radius-md: 10px;
+  --radius-lg: 12px;
+  --radius-full: 9999px;
+
+  /* Shadows */
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.02);
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.04),
+    0 2px 4px -1px rgba(0, 0, 0, 0.02);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.04),
+    0 4px 6px -2px rgba(0, 0, 0, 0.02);
+  --shadow-inset-sm: inset 0 1px 0 rgba(255, 255, 255, 0.15),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.03);
+
+  /* Animation */
+  --duration-fast: 150ms;
+  --duration-normal: 250ms;
+  --ease-standard: cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* Layout */
+  --container-sm: 640px;
+  --container-md: 768px;
+  --container-lg: 1024px;
+  --container-xl: 1280px;
+}
+
+/* Dark mode colors */
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* RGB versions for opacity control (Dark Mode) */
+    --color-gray-400-rgb: 119, 124, 124;
+    --color-teal-300-rgb: 50, 184, 198;
+    --color-gray-300-rgb: 167, 169, 169;
+    --color-gray-200-rgb: 245, 245, 245;
+
+    /* Background color tokens (Dark Mode) */
+    --color-bg-1: rgba(29, 78, 216, 0.15); /* Dark blue */
+    --color-bg-2: rgba(180, 83, 9, 0.15); /* Dark yellow */
+    --color-bg-3: rgba(21, 128, 61, 0.15); /* Dark green */
+    --color-bg-4: rgba(185, 28, 28, 0.15); /* Dark red */
+    --color-bg-5: rgba(107, 33, 168, 0.15); /* Dark purple */
+    --color-bg-6: rgba(194, 65, 12, 0.15); /* Dark orange */
+    --color-bg-7: rgba(190, 24, 93, 0.15); /* Dark pink */
+    --color-bg-8: rgba(8, 145, 178, 0.15); /* Dark cyan */
+
+    /* Semantic Color Tokens (Dark Mode) */
+    --color-background: var(--color-charcoal-700);
+    --color-surface: var(--color-charcoal-800);
+    --color-text: var(--color-gray-200);
+    --color-text-secondary: rgba(var(--color-gray-300-rgb), 0.7);
+    --color-primary: var(--color-teal-300);
+    --color-primary-hover: var(--color-teal-400);
+    --color-primary-active: var(--color-teal-800);
+    --color-secondary: rgba(var(--color-gray-400-rgb), 0.15);
+    --color-secondary-hover: rgba(var(--color-gray-400-rgb), 0.25);
+    --color-secondary-active: rgba(var(--color-gray-400-rgb), 0.3);
+    --color-border: rgba(var(--color-gray-400-rgb), 0.3);
+    --color-error: var(--color-red-400);
+    --color-success: var(--color-teal-300);
+    --color-warning: var(--color-orange-400);
+    --color-info: var(--color-gray-300);
+    --color-focus-ring: rgba(var(--color-teal-300-rgb), 0.4);
+    --color-btn-primary-text: var(--color-slate-900);
+    --color-card-border: rgba(var(--color-gray-400-rgb), 0.2);
+    --color-card-border-inner: rgba(var(--color-gray-400-rgb), 0.15);
+    --shadow-inset-sm: inset 0 1px 0 rgba(255, 255, 255, 0.1),
+      inset 0 -1px 0 rgba(0, 0, 0, 0.15);
+    --button-border-secondary: rgba(var(--color-gray-400-rgb), 0.2);
+    --color-border-secondary: rgba(var(--color-gray-400-rgb), 0.2);
+    --color-select-caret: rgba(var(--color-gray-200-rgb), 0.8);
+
+    /* Common style patterns - updated for dark mode */
+    --focus-ring: 0 0 0 3px var(--color-focus-ring);
+    --focus-outline: 2px solid var(--color-primary);
+    --status-bg-opacity: 0.15;
+    --status-border-opacity: 0.25;
+    --select-caret-light: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23134252' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    --select-caret-dark: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23f5f5f5' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+
+    /* RGB versions for dark mode */
+    --color-success-rgb: var(--color-teal-300-rgb);
+    --color-error-rgb: var(--color-red-400-rgb);
+    --color-warning-rgb: var(--color-orange-400-rgb);
+    --color-info-rgb: var(--color-gray-300-rgb);
+  }
+}
+
+/* Base styles */
+html {
+  font-size: var(--font-size-base);
+  font-family: var(--font-family-base);
+  line-height: var(--line-height-normal);
+  color: var(--color-text);
+  background-color: var(--color-background);
+  -webkit-font-smoothing: antialiased;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+/* Typography */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-tight);
+  color: var(--color-text);
+  letter-spacing: var(--letter-spacing-tight);
+}
+
+h1 {
+  font-size: var(--font-size-4xl);
+}
+h2 {
+  font-size: var(--font-size-3xl);
+}
+h3 {
+  font-size: var(--font-size-2xl);
+}
+h4 {
+  font-size: var(--font-size-xl);
+}
+h5 {
+  font-size: var(--font-size-lg);
+}
+h6 {
+  font-size: var(--font-size-md);
+}
+
+p {
+  margin: 0 0 var(--space-16) 0;
+}
+
+a {
+  color: var(--color-primary);
+  text-decoration: none;
+  transition: color var(--duration-fast) var(--ease-standard);
+}
+
+a:hover {
+  color: var(--color-primary-hover);
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-8) var(--space-16);
+  border-radius: var(--radius-base);
+  font-size: var(--font-size-base);
+  font-weight: 500;
+  line-height: 1.5;
+  cursor: pointer;
+  transition: all var(--duration-normal) var(--ease-standard);
+  border: none;
+  text-decoration: none;
+  position: relative;
+}
+
+.btn:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+}
+
+.btn--primary {
+  background: var(--color-primary);
+  color: var(--color-btn-primary-text);
+}
+
+.btn--primary:hover {
+  background: var(--color-primary-hover);
+}
+
+.btn--primary:active {
+  background: var(--color-primary-active);
+}
+
+.btn--secondary {
+  background: var(--color-secondary);
+  color: var(--color-text);
+}
+
+.btn--secondary:hover {
+  background: var(--color-secondary-hover);
+}
+
+.btn--secondary:active {
+  background: var(--color-secondary-active);
+}
+
+.btn--outline {
+  background: transparent;
+  border: 1px solid var(--color-border);
+  color: var(--color-text);
+}
+
+.btn--outline:hover {
+  background: var(--color-secondary);
+}
+
+.btn--sm {
+  padding: var(--space-4) var(--space-12);
+  font-size: var(--font-size-sm);
+  border-radius: var(--radius-sm);
+}
+
+.btn--lg {
+  padding: var(--space-10) var(--space-20);
+  font-size: var(--font-size-lg);
+  border-radius: var(--radius-md);
+}
+
+.btn--full-width {
+  width: 100%;
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Form elements */
+.form-control {
+  display: block;
+  width: 100%;
+  padding: var(--space-8) var(--space-12);
+  font-size: var(--font-size-md);
+  line-height: 1.5;
+  color: var(--color-text);
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-base);
+  transition: border-color var(--duration-fast) var(--ease-standard),
+    box-shadow var(--duration-fast) var(--ease-standard);
+}
+
+textarea.form-control {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-base);
+}
+
+select.form-control {
+  padding: var(--space-8) var(--space-12);
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-image: var(--select-caret-light);
+  background-repeat: no-repeat;
+  background-position: right var(--space-12) center;
+  background-size: 16px;
+  padding-right: var(--space-32);
+}
+
+/* Add a dark mode specific caret */
+@media (prefers-color-scheme: dark) {
+  select.form-control {
+    background-image: var(--select-caret-dark);
+  }
+}
+
+.form-control:focus {
+  border-color: var(--color-primary);
+  outline: var(--focus-outline);
+}
+
+.form-label {
+  display: block;
+  margin-bottom: var(--space-8);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-sm);
+}
+
+.form-group {
+  margin-bottom: var(--space-16);
+}
+
+/* Card component */
+.card {
+  background-color: var(--color-surface);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-card-border);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+  transition: box-shadow var(--duration-normal) var(--ease-standard);
+}
+
+.card:hover {
+  box-shadow: var(--shadow-md);
+}
+
+.card__body {
+  padding: var(--space-16);
+}
+
+.card__header,
+.card__footer {
+  padding: var(--space-16);
+  border-bottom: 1px solid var(--color-card-border-inner);
+}
+
+/* Utility classes */
+.flex {
+  display: flex;
+}
+.flex-col {
+  flex-direction: column;
+}
+.items-center {
+  align-items: center;
+}
+.justify-center {
+  justify-content: center;
+}
+.justify-between {
+  justify-content: space-between;
+}
+.gap-4 {
+  gap: var(--space-4);
+}
+.gap-8 {
+  gap: var(--space-8);
+}
+.gap-16 {
+  gap: var(--space-16);
+}
+
+.m-0 {
+  margin: 0;
+}
+.mt-8 {
+  margin-top: var(--space-8);
+}
+.mb-8 {
+  margin-bottom: var(--space-8);
+}
+.mx-8 {
+  margin-left: var(--space-8);
+  margin-right: var(--space-8);
+}
+.my-8 {
+  margin-top: var(--space-8);
+  margin-bottom: var(--space-8);
+}
+
+.p-0 {
+  padding: 0;
+}
+.py-8 {
+  padding-top: var(--space-8);
+  padding-bottom: var(--space-8);
+}
+.px-8 {
+  padding-left: var(--space-8);
+  padding-right: var(--space-8);
+}
+.py-16 {
+  padding-top: var(--space-16);
+  padding-bottom: var(--space-16);
+}
+.px-16 {
+  padding-left: var(--space-16);
+  padding-right: var(--space-16);
+}
+
+.block {
+  display: block;
+}
+.hidden {
+  display: none;
+}
+
+/* Accessibility */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+:focus-visible {
+  outline: var(--focus-outline);
+  outline-offset: 2px;
+}
+
+@font-face {
+  font-family: 'FKGroteskNeue';
+  src: url('https://r2cdn.perplexity.ai/fonts/FKGroteskNeue.woff2')
+    format('woff2');
+}
+
+        /* Custom App Styles */
+        .app {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header {
+            background: var(--color-surface);
+            border-bottom: 1px solid var(--color-border);
+            padding: var(--space-16) var(--space-24);
+        }
+
+        .nav-tabs {
+            display: flex;
+            gap: var(--space-4);
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-tab {
+            padding: var(--space-8) var(--space-16);
+            background: transparent;
+            border: 1px solid transparent;
+            border-radius: var(--radius-base);
+            font-size: var(--font-size-sm);
+            font-weight: var(--font-weight-medium);
+            color: var(--color-text-secondary);
+            cursor: pointer;
+            transition: all var(--duration-fast) var(--ease-standard);
+        }
+
+        .nav-tab:hover {
+            background: var(--color-secondary);
+            color: var(--color-text);
+        }
+
+        .nav-tab.active {
+            background: var(--color-primary);
+            color: var(--color-btn-primary-text);
+            border-color: var(--color-primary);
+        }
+
+        .main-content {
+            flex: 1;
+            padding: var(--space-24);
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Wheel Tab Styles */
+        .wheel-container {
+            text-align: center;
+            margin-bottom: var(--space-32);
+        }
+
+        .wheel-svg {
+            max-width: 400px;
+            width: 100%;
+            height: 400px;
+            margin: var(--space-24) auto;
+        }
+
+        .wheel-segment {
+            cursor: pointer;
+            transition: opacity var(--duration-fast) var(--ease-standard);
+        }
+
+        .wheel-segment:hover {
+            opacity: 0.8;
+        }
+
+        .wheel-legend {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--space-16);
+            margin-top: var(--space-24);
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: var(--space-8);
+            padding: var(--space-8);
+            background: var(--color-surface);
+            border-radius: var(--radius-base);
+            border: 1px solid var(--color-border);
+        }
+
+        .legend-color {
+            width: 16px;
+            height: 16px;
+            border-radius: var(--radius-sm);
+            flex-shrink: 0;
+        }
+
+        .legend-text {
+            font-size: var(--font-size-sm);
+            font-weight: var(--font-weight-medium);
+        }
+
+        /* List Tab Styles */
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--space-20);
+        }
+
+        .category-card {
+            background: var(--color-surface);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--color-border);
+            overflow: hidden;
+        }
+
+        .category-header {
+            padding: var(--space-16);
+            border-bottom: 1px solid var(--color-border);
+            display: flex;
+            align-items: center;
+            gap: var(--space-8);
+        }
+
+        .category-color {
+            width: 12px;
+            height: 12px;
+            border-radius: var(--radius-sm);
+            flex-shrink: 0;
+        }
+
+        .category-name {
+            font-weight: var(--font-weight-semibold);
+            font-size: var(--font-size-lg);
+        }
+
+        .goals-list {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .goal-item {
+            padding: var(--space-12) var(--space-16);
+            border-bottom: 1px solid var(--color-border);
+            display: flex;
+            align-items: center;
+            gap: var(--space-8);
+        }
+
+        .goal-item:last-child {
+            border-bottom: none;
+        }
+
+        .goal-checkbox {
+            appearance: none;
+            width: 16px;
+            height: 16px;
+            border: 2px solid var(--color-border);
+            border-radius: var(--radius-sm);
+            position: relative;
+            cursor: pointer;
+        }
+
+        .goal-checkbox:checked {
+            background: var(--color-primary);
+            border-color: var(--color-primary);
+        }
+
+        .goal-checkbox:checked::after {
+            content: '✓';
+            position: absolute;
+            top: -2px;
+            left: 1px;
+            color: var(--color-btn-primary-text);
+            font-size: 11px;
+            font-weight: bold;
+        }
+
+        .goal-text {
+            flex: 1;
+            font-size: var(--font-size-sm);
+        }
+
+        .goal-text.completed {
+            text-decoration: line-through;
+            opacity: 0.6;
+        }
+
+        .add-goal-form {
+            padding: var(--space-16);
+            border-top: 1px solid var(--color-border);
+        }
+
+        .add-goal-input {
+            width: 100%;
+            padding: var(--space-8);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-base);
+            font-size: var(--font-size-sm);
+            background: var(--color-background);
+            color: var(--color-text);
+        }
+
+        /* Calendar Tab Styles */
+        .calendar-controls {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: var(--space-24);
+            flex-wrap: wrap;
+            gap: var(--space-16);
+        }
+
+        .calendar-nav {
+            display: flex;
+            align-items: center;
+            gap: var(--space-16);
+        }
+
+        .calendar-title {
+            font-size: var(--font-size-xl);
+            font-weight: var(--font-weight-semibold);
+            min-width: 200px;
+            text-align: center;
+        }
+
+        .view-toggle {
+            display: flex;
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-base);
+            overflow: hidden;
+        }
+
+        .view-btn {
+            padding: var(--space-6) var(--space-12);
+            background: var(--color-surface);
+            border: none;
+            cursor: pointer;
+            font-size: var(--font-size-sm);
+            color: var(--color-text-secondary);
+        }
+
+        .view-btn.active {
+            background: var(--color-primary);
+            color: var(--color-btn-primary-text);
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 1px;
+            background: var(--color-border);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-base);
+            overflow: hidden;
+        }
+
+        .calendar-header {
+            background: var(--color-secondary);
+            padding: var(--space-8);
+            text-align: center;
+            font-weight: var(--font-weight-semibold);
+            font-size: var(--font-size-sm);
+        }
+
+        .calendar-day {
+            background: var(--color-surface);
+            min-height: 80px;
+            padding: var(--space-4);
+            cursor: pointer;
+            position: relative;
+            transition: background var(--duration-fast) var(--ease-standard);
+        }
+
+        .calendar-day:hover {
+            background: var(--color-secondary);
+        }
+
+        .calendar-day.other-month {
+            opacity: 0.4;
+        }
+
+        .calendar-day.today {
+            background: rgba(var(--color-teal-500-rgb), 0.1);
+        }
+
+        .day-number {
+            font-size: var(--font-size-sm);
+            font-weight: var(--font-weight-medium);
+            margin-bottom: var(--space-4);
+        }
+
+        .day-events {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-2);
+        }
+
+        .event-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .event-text {
+            font-size: 10px;
+            line-height: 1.2;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        /* Event Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.show {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--color-surface);
+            border-radius: var(--radius-lg);
+            padding: var(--space-24);
+            max-width: 400px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: var(--space-20);
+        }
+
+        .modal-title {
+            font-size: var(--font-size-lg);
+            font-weight: var(--font-weight-semibold);
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: var(--font-size-xl);
+            cursor: pointer;
+            color: var(--color-text-secondary);
+            padding: var(--space-4);
+            line-height: 1;
+        }
+
+        .close-btn:hover {
+            color: var(--color-text);
+        }
+
+        /* Drawing Tab Styles */
+        .drawing-container {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-16);
+        }
+
+        .drawing-toolbar {
+            display: flex;
+            align-items: center;
+            gap: var(--space-12);
+            padding: var(--space-12);
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-base);
+            flex-wrap: wrap;
+        }
+
+        .tool-group {
+            display: flex;
+            align-items: center;
+            gap: var(--space-4);
+            padding-right: var(--space-12);
+            border-right: 1px solid var(--color-border);
+        }
+
+        .tool-group:last-child {
+            border-right: none;
+        }
+
+        .tool-btn {
+            width: 36px;
+            height: 36px;
+            border: 1px solid var(--color-border);
+            background: var(--color-background);
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all var(--duration-fast) var(--ease-standard);
+        }
+
+        .tool-btn:hover {
+            background: var(--color-secondary);
+        }
+
+        .tool-btn.active {
+            background: var(--color-primary);
+            color: var(--color-btn-primary-text);
+            border-color: var(--color-primary);
+        }
+
+        .size-slider {
+            width: 80px;
+        }
+
+        .canvas-container {
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-base);
+            overflow: hidden;
+            background: white;
+        }
+
+        .drawing-canvas {
+            display: block;
+            cursor: crosshair;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .main-content {
+                padding: var(--space-16);
+            }
+
+            .nav-tabs {
+                flex-wrap: wrap;
+            }
+
+            .wheel-svg {
+                max-width: 300px;
+                height: 300px;
+            }
+
+            .categories-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .calendar-controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .calendar-nav {
+                justify-content: center;
+            }
+
+            .calendar-day {
+                min-height: 60px;
+            }
+
+            .drawing-toolbar {
+                flex-wrap: wrap;
+            }
+
+            .modal-content {
+                width: 95%;
+                margin: var(--space-16);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="app">
+        <header class="header">
+            <h1>Wheel of Life - Goals Dashboard</h1>
+            <nav>
+                <ul class="nav-tabs">
+                    <li class="nav-tab active" data-tab="wheel">Wheel</li>
+                    <li class="nav-tab" data-tab="list">List</li>
+                    <li class="nav-tab" data-tab="calendar">Calendar</li>
+                    <li class="nav-tab" data-tab="draw">Draw</li>
+                </ul>
+            </nav>
+        </header>
+
+        <main class="main-content">
+            <!-- Wheel Tab -->
+            <div id="wheel-tab" class="tab-content active">
+                <div class="wheel-container">
+                    <h2>Life Balance Wheel</h2>
+                    <p class="mb-8">Click on segments to focus on specific areas of your life.</p>
+                    <svg class="wheel-svg" viewBox="0 0 400 400">
+                        <!-- Wheel will be generated by JavaScript -->
+                    </svg>
+                </div>
+                <div class="wheel-legend">
+                    <!-- Legend will be generated by JavaScript -->
+                </div>
+            </div>
+
+            <!-- List Tab -->
+            <div id="list-tab" class="tab-content">
+                <div class="categories-grid">
+                    <!-- Categories will be generated by JavaScript -->
+                </div>
+            </div>
+
+            <!-- Calendar Tab -->
+            <div id="calendar-tab" class="tab-content">
+                <div class="calendar-controls">
+                    <div class="calendar-nav">
+                        <button class="btn btn--outline" id="prevMonth">&larr;</button>
+                        <h3 class="calendar-title" id="calendarTitle">October 2025</h3>
+                        <button class="btn btn--outline" id="nextMonth">&rarr;</button>
+                    </div>
+                    <div class="view-toggle">
+                        <button class="view-btn active" data-view="month">Month</button>
+                        <button class="view-btn" data-view="week">Week</button>
+                    </div>
+                </div>
+                <div class="calendar-grid" id="calendarGrid">
+                    <!-- Calendar will be generated by JavaScript -->
+                </div>
+            </div>
+
+            <!-- Draw Tab -->
+            <div id="draw-tab" class="tab-content">
+                <div class="drawing-container">
+                    <div class="drawing-toolbar">
+                        <div class="tool-group">
+                            <button class="tool-btn active" data-tool="pen" title="Pen">🖊️</button>
+                            <button class="tool-btn" data-tool="marker" title="Marker">🖍️</button>
+                            <button class="tool-btn" data-tool="highlight" title="Highlighter">🖍️</button>
+                            <button class="tool-btn" data-tool="eraser" title="Eraser">🗑️</button>
+                        </div>
+                        <div class="tool-group">
+                            <label for="brushSize">Size:</label>
+                            <input type="range" id="brushSize" class="size-slider" min="1" max="20" value="2">
+                            <span id="sizeDisplay">2px</span>
+                        </div>
+                        <div class="tool-group">
+                            <button class="btn btn--sm" id="undoBtn">Undo</button>
+                            <button class="btn btn--sm" id="redoBtn">Redo</button>
+                        </div>
+                        <div class="tool-group">
+                            <button class="btn btn--sm btn--outline" id="clearCanvas">Clear</button>
+                        </div>
+                    </div>
+                    <div class="canvas-container">
+                        <canvas id="drawingCanvas" class="drawing-canvas" width="800" height="600"></canvas>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Event Modal -->
+    <div id="eventModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="modalTitle">Add Event</h3>
+                <button class="close-btn" id="closeModal">&times;</button>
+            </div>
+            <form id="eventForm">
+                <div class="form-group">
+                    <label class="form-label" for="eventTitle">Title</label>
+                    <input type="text" id="eventTitle" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="eventCategory">Category</label>
+                    <select id="eventCategory" class="form-control">
+                        <!-- Categories will be populated by JavaScript -->
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="eventDescription">Description (optional)</label>
+                    <textarea id="eventDescription" class="form-control" rows="3"></textarea>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn--primary btn--full-width">Save Event</button>
+                </div>
+                <div id="eventActions" class="form-group" style="display: none;">
+                    <button type="button" class="btn btn--outline btn--full-width" id="deleteEvent">Delete Event</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Application State
+        const appState = {
+            categories: [
+                { name: 'Medical School', color: '#A8D8EA', goals: [] },
+                { name: 'Jiu-Jitsu', color: '#FFB6B9', goals: [] },
+                { name: 'Research', color: '#C7CEEA', goals: [] },
+                { name: 'Health & Fitness', color: '#B8E6B8', goals: [] },
+                { name: 'Relationships', color: '#FFDCE5', goals: [] },
+                { name: 'Faith & Character', color: '#FFE5B4', goals: [] },
+                { name: 'Finance', color: '#B5EAD7', goals: [] },
+                { name: 'Personal Growth', color: '#FFDAB9', goals: [] }
+            ],
+            events: [],
+            currentDate: new Date(2025, 9, 17), // October 17, 2025
+            calendarView: 'month',
+            currentTool: 'pen',
+            brushSize: 2,
+            drawingHistory: [],
+            historyStep: -1
+        };
+
+        // Initialize the application
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeTabs();
+            renderWheel();
+            renderLegend();
+            renderCategoriesGrid();
+            renderCalendar();
+            initializeDrawing();
+            populateEventCategorySelect();
+
+            // Add some sample goals
+            addSampleGoals();
+        });
+
+        // Tab Management
+        function initializeTabs() {
+            const tabs = document.querySelectorAll('.nav-tab');
+            const tabContents = document.querySelectorAll('.tab-content');
+
+            tabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    const tabId = this.dataset.tab;
+                    
+                    // Update tab styles
+                    tabs.forEach(t => t.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Update content visibility
+                    tabContents.forEach(content => {
+                        content.classList.remove('active');
+                    });
+                    document.getElementById(tabId + '-tab').classList.add('active');
+                    
+                    // Refresh content if needed
+                    if (tabId === 'calendar') {
+                        renderCalendar();
+                    } else if (tabId === 'draw') {
+                        resizeCanvas();
+                    }
+                });
+            });
+        }
+
+        // Wheel Visualization
+        function renderWheel() {
+            const svg = document.querySelector('.wheel-svg');
+            const centerX = 200;
+            const centerY = 200;
+            const radius = 150;
+            const categories = appState.categories;
+            const angleStep = (2 * Math.PI) / categories.length;
+
+            // Clear existing content
+            svg.innerHTML = '';
+
+            categories.forEach((category, index) => {
+                const startAngle = index * angleStep - Math.PI / 2;
+                const endAngle = (index + 1) * angleStep - Math.PI / 2;
+                
+                const x1 = centerX + radius * Math.cos(startAngle);
+                const y1 = centerY + radius * Math.sin(startAngle);
+                const x2 = centerX + radius * Math.cos(endAngle);
+                const y2 = centerY + radius * Math.sin(endAngle);
+                
+                const largeArcFlag = angleStep > Math.PI ? 1 : 0;
+                
+                const pathData = [
+                    `M ${centerX} ${centerY}`,
+                    `L ${x1} ${y1}`,
+                    `A ${radius} ${radius} 0 ${largeArcFlag} 1 ${x2} ${y2}`,
+                    'Z'
+                ].join(' ');
+                
+                const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+                path.setAttribute('d', pathData);
+                path.setAttribute('fill', category.color);
+                path.setAttribute('stroke', 'white');
+                path.setAttribute('stroke-width', '2');
+                path.classList.add('wheel-segment');
+                path.setAttribute('data-category', category.name);
+                
+                // Add click handler
+                path.addEventListener('click', function() {
+                    focusCategory(category.name);
+                });
+                
+                svg.appendChild(path);
+                
+                // Add text label
+                const textAngle = startAngle + angleStep / 2;
+                const textRadius = radius * 0.7;
+                const textX = centerX + textRadius * Math.cos(textAngle);
+                const textY = centerY + textRadius * Math.sin(textAngle);
+                
+                const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                text.setAttribute('x', textX);
+                text.setAttribute('y', textY);
+                text.setAttribute('text-anchor', 'middle');
+                text.setAttribute('dominant-baseline', 'middle');
+                text.setAttribute('font-size', '12');
+                text.setAttribute('font-weight', '600');
+                text.setAttribute('fill', '#333');
+                text.style.pointerEvents = 'none';
+                
+                // Split long text
+                const words = category.name.split(' ');
+                if (words.length > 1) {
+                    words.forEach((word, wordIndex) => {
+                        const tspan = document.createElementNS('http://www.w3.org/2000/svg', 'tspan');
+                        tspan.setAttribute('x', textX);
+                        tspan.setAttribute('dy', wordIndex === 0 ? '0' : '14');
+                        tspan.textContent = word;
+                        text.appendChild(tspan);
+                    });
+                } else {
+                    text.textContent = category.name;
+                }
+                
+                svg.appendChild(text);
+            });
+        }
+
+        // Render Legend
+        function renderLegend() {
+            const legend = document.querySelector('.wheel-legend');
+            legend.innerHTML = '';
+            
+            appState.categories.forEach(category => {
+                const item = document.createElement('div');
+                item.classList.add('legend-item');
+                
+                const color = document.createElement('div');
+                color.classList.add('legend-color');
+                color.style.backgroundColor = category.color;
+                
+                const text = document.createElement('div');
+                text.classList.add('legend-text');
+                text.textContent = category.name;
+                
+                item.appendChild(color);
+                item.appendChild(text);
+                legend.appendChild(item);
+            });
+        }
+
+        // Categories Grid (List Tab)
+        function renderCategoriesGrid() {
+            const grid = document.querySelector('.categories-grid');
+            grid.innerHTML = '';
+            
+            appState.categories.forEach((category, categoryIndex) => {
+                const card = document.createElement('div');
+                card.classList.add('category-card');
+                
+                const header = document.createElement('div');
+                header.classList.add('category-header');
+                
+                const colorIndicator = document.createElement('div');
+                colorIndicator.classList.add('category-color');
+                colorIndicator.style.backgroundColor = category.color;
+                
+                const name = document.createElement('div');
+                name.classList.add('category-name');
+                name.textContent = category.name;
+                
+                header.appendChild(colorIndicator);
+                header.appendChild(name);
+                
+                const goalsList = document.createElement('ul');
+                goalsList.classList.add('goals-list');
+                
+                category.goals.forEach((goal, goalIndex) => {
+                    const goalItem = createGoalItem(goal, categoryIndex, goalIndex);
+                    goalsList.appendChild(goalItem);
+                });
+                
+                const addForm = document.createElement('div');
+                addForm.classList.add('add-goal-form');
+                
+                const input = document.createElement('input');
+                input.classList.add('add-goal-input');
+                input.type = 'text';
+                input.placeholder = 'Add a new goal...';
+                
+                input.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter' && this.value.trim()) {
+                        addGoal(categoryIndex, this.value.trim());
+                        this.value = '';
+                    }
+                });
+                
+                addForm.appendChild(input);
+                
+                card.appendChild(header);
+                card.appendChild(goalsList);
+                card.appendChild(addForm);
+                
+                grid.appendChild(card);
+            });
+        }
+
+        function createGoalItem(goal, categoryIndex, goalIndex) {
+            const item = document.createElement('li');
+            item.classList.add('goal-item');
+            
+            const checkbox = document.createElement('input');
+            checkbox.type = 'checkbox';
+            checkbox.classList.add('goal-checkbox');
+            checkbox.checked = goal.completed;
+            
+            const text = document.createElement('span');
+            text.classList.add('goal-text');
+            if (goal.completed) {
+                text.classList.add('completed');
+            }
+            text.textContent = goal.text;
+            
+            checkbox.addEventListener('change', function() {
+                toggleGoal(categoryIndex, goalIndex);
+            });
+            
+            item.appendChild(checkbox);
+            item.appendChild(text);
+            
+            return item;
+        }
+
+        // Goal Management
+        function addGoal(categoryIndex, goalText) {
+            appState.categories[categoryIndex].goals.push({
+                text: goalText,
+                completed: false,
+                createdAt: new Date()
+            });
+            renderCategoriesGrid();
+        }
+
+        function toggleGoal(categoryIndex, goalIndex) {
+            appState.categories[categoryIndex].goals[goalIndex].completed = 
+                !appState.categories[categoryIndex].goals[goalIndex].completed;
+            renderCategoriesGrid();
+        }
+
+        function focusCategory(categoryName) {
+            // Switch to list tab and highlight category
+            const tabs = document.querySelectorAll('.nav-tab');
+            const tabContents = document.querySelectorAll('.tab-content');
+            
+            tabs.forEach(t => t.classList.remove('active'));
+            document.querySelector('[data-tab="list"]').classList.add('active');
+            
+            tabContents.forEach(content => content.classList.remove('active'));
+            document.getElementById('list-tab').classList.add('active');
+        }
+
+        // Calendar Functions
+        function renderCalendar() {
+            const grid = document.getElementById('calendarGrid');
+            const title = document.getElementById('calendarTitle');
+            
+            if (appState.calendarView === 'month') {
+                renderMonthView(grid, title);
+            } else {
+                renderWeekView(grid, title);
+            }
+        }
+
+        function renderMonthView(grid, title) {
+            const currentDate = appState.currentDate;
+            const year = currentDate.getFullYear();
+            const month = currentDate.getMonth();
+            
+            title.textContent = new Date(year, month).toLocaleDateString('en-US', {
+                month: 'long',
+                year: 'numeric'
+            });
+            
+            grid.innerHTML = '';
+            
+            // Days of week headers
+            const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+            daysOfWeek.forEach(day => {
+                const header = document.createElement('div');
+                header.classList.add('calendar-header');
+                header.textContent = day;
+                grid.appendChild(header);
+            });
+            
+            // Get first day of month and number of days
+            const firstDay = new Date(year, month, 1).getDay();
+            const daysInMonth = new Date(year, month + 1, 0).getDate();
+            const daysInPrevMonth = new Date(year, month, 0).getDate();
+            
+            // Previous month's trailing days
+            for (let i = firstDay - 1; i >= 0; i--) {
+                const day = daysInPrevMonth - i;
+                const dayElement = createCalendarDay(day, true, new Date(year, month - 1, day));
+                grid.appendChild(dayElement);
+            }
+            
+            // Current month's days
+            for (let day = 1; day <= daysInMonth; day++) {
+                const date = new Date(year, month, day);
+                const dayElement = createCalendarDay(day, false, date);
+                
+                // Check if today
+                const today = new Date();
+                if (date.toDateString() === today.toDateString()) {
+                    dayElement.classList.add('today');
+                }
+                
+                grid.appendChild(dayElement);
+            }
+            
+            // Next month's leading days
+            const totalCells = grid.children.length;
+            const remainingCells = 42 - totalCells + 7; // 6 weeks * 7 days - headers
+            for (let day = 1; day <= remainingCells; day++) {
+                const dayElement = createCalendarDay(day, true, new Date(year, month + 1, day));
+                grid.appendChild(dayElement);
+            }
+        }
+
+        function createCalendarDay(dayNumber, isOtherMonth, date) {
+            const dayElement = document.createElement('div');
+            dayElement.classList.add('calendar-day');
+            if (isOtherMonth) {
+                dayElement.classList.add('other-month');
+            }
+            
+            const dayNumberSpan = document.createElement('div');
+            dayNumberSpan.classList.add('day-number');
+            dayNumberSpan.textContent = dayNumber;
+            
+            const eventsContainer = document.createElement('div');
+            eventsContainer.classList.add('day-events');
+            
+            // Add events for this day
+            const dayEvents = getEventsForDate(date);
+            dayEvents.forEach(event => {
+                const eventElement = document.createElement('div');
+                eventElement.style.display = 'flex';
+                eventElement.style.alignItems = 'center';
+                eventElement.style.gap = '4px';
+                
+                const dot = document.createElement('div');
+                dot.classList.add('event-dot');
+                dot.style.backgroundColor = getCategoryColor(event.category);
+                
+                const text = document.createElement('div');
+                text.classList.add('event-text');
+                text.textContent = event.title;
+                
+                eventElement.appendChild(dot);
+                eventElement.appendChild(text);
+                eventsContainer.appendChild(eventElement);
+            });
+            
+            dayElement.appendChild(dayNumberSpan);
+            dayElement.appendChild(eventsContainer);
+            
+            // Add click handler
+            dayElement.addEventListener('click', function() {
+                openEventModal(date);
+            });
+            
+            return dayElement;
+        }
+
+        function renderWeekView(grid, title) {
+            // Simplified week view - shows 7 days in a row
+            const startOfWeek = getStartOfWeek(appState.currentDate);
+            
+            title.textContent = `Week of ${startOfWeek.toLocaleDateString()}`;
+            
+            grid.innerHTML = '';
+            grid.style.gridTemplateColumns = 'repeat(7, 1fr)';
+            
+            for (let i = 0; i < 7; i++) {
+                const date = new Date(startOfWeek);
+                date.setDate(startOfWeek.getDate() + i);
+                
+                const dayElement = createCalendarDay(date.getDate(), false, date);
+                dayElement.style.minHeight = '120px';
+                
+                const today = new Date();
+                if (date.toDateString() === today.toDateString()) {
+                    dayElement.classList.add('today');
+                }
+                
+                grid.appendChild(dayElement);
+            }
+        }
+
+        function getStartOfWeek(date) {
+            const d = new Date(date);
+            const day = d.getDay();
+            const diff = d.getDate() - day;
+            return new Date(d.setDate(diff));
+        }
+
+        function getEventsForDate(date) {
+            const dateString = date.toDateString();
+            return appState.events.filter(event => 
+                new Date(event.date).toDateString() === dateString
+            );
+        }
+
+        function getCategoryColor(categoryName) {
+            const category = appState.categories.find(cat => cat.name === categoryName);
+            return category ? category.color : '#ccc';
+        }
+
+        // Calendar Navigation
+        document.getElementById('prevMonth').addEventListener('click', function() {
+            if (appState.calendarView === 'month') {
+                appState.currentDate.setMonth(appState.currentDate.getMonth() - 1);
+            } else {
+                appState.currentDate.setDate(appState.currentDate.getDate() - 7);
+            }
+            renderCalendar();
+        });
+
+        document.getElementById('nextMonth').addEventListener('click', function() {
+            if (appState.calendarView === 'month') {
+                appState.currentDate.setMonth(appState.currentDate.getMonth() + 1);
+            } else {
+                appState.currentDate.setDate(appState.currentDate.getDate() + 7);
+            }
+            renderCalendar();
+        });
+
+        // View Toggle
+        document.querySelectorAll('.view-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.view-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                appState.calendarView = this.dataset.view;
+                renderCalendar();
+            });
+        });
+
+        // Event Modal Functions
+        let currentEventDate = null;
+        let currentEventId = null;
+
+        function openEventModal(date) {
+            currentEventDate = date;
+            currentEventId = null;
+            
+            const modal = document.getElementById('eventModal');
+            const title = document.getElementById('modalTitle');
+            const form = document.getElementById('eventForm');
+            
+            title.textContent = `Add Event - ${date.toLocaleDateString()}`;
+            form.reset();
+            document.getElementById('eventActions').style.display = 'none';
+            
+            modal.classList.add('show');
+        }
+
+        function closeEventModal() {
+            document.getElementById('eventModal').classList.remove('show');
+        }
+
+        function populateEventCategorySelect() {
+            const select = document.getElementById('eventCategory');
+            select.innerHTML = '';
+            
+            appState.categories.forEach(category => {
+                const option = document.createElement('option');
+                option.value = category.name;
+                option.textContent = category.name;
+                select.appendChild(option);
+            });
+        }
+
+        // Event Modal Event Listeners
+        document.getElementById('closeModal').addEventListener('click', closeEventModal);
+        
+        document.getElementById('eventModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeEventModal();
+            }
+        });
+
+        document.getElementById('eventForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const title = document.getElementById('eventTitle').value;
+            const category = document.getElementById('eventCategory').value;
+            const description = document.getElementById('eventDescription').value;
+            
+            if (currentEventId) {
+                // Update existing event
+                const eventIndex = appState.events.findIndex(e => e.id === currentEventId);
+                if (eventIndex !== -1) {
+                    appState.events[eventIndex] = {
+                        ...appState.events[eventIndex],
+                        title,
+                        category,
+                        description
+                    };
+                }
+            } else {
+                // Add new event
+                appState.events.push({
+                    id: Date.now(),
+                    title,
+                    category,
+                    description,
+                    date: currentEventDate.toISOString(),
+                    createdAt: new Date().toISOString()
+                });
+            }
+            
+            renderCalendar();
+            closeEventModal();
+        });
+
+        // Drawing Functions
+        let canvas, ctx;
+        let isDrawing = false;
+        let lastX = 0;
+        let lastY = 0;
+
+        function initializeDrawing() {
+            canvas = document.getElementById('drawingCanvas');
+            ctx = canvas.getContext('2d');
+            
+            // Set canvas size
+            resizeCanvas();
+            
+            // Drawing event listeners
+            canvas.addEventListener('mousedown', startDrawing);
+            canvas.addEventListener('mousemove', draw);
+            canvas.addEventListener('mouseup', stopDrawing);
+            canvas.addEventListener('mouseout', stopDrawing);
+            
+            // Touch events for mobile
+            canvas.addEventListener('touchstart', handleTouch);
+            canvas.addEventListener('touchmove', handleTouch);
+            canvas.addEventListener('touchend', stopDrawing);
+            
+            // Tool selection
+            document.querySelectorAll('[data-tool]').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('[data-tool]').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    appState.currentTool = this.dataset.tool;
+                });
+            });
+            
+            // Brush size
+            const sizeSlider = document.getElementById('brushSize');
+            const sizeDisplay = document.getElementById('sizeDisplay');
+            
+            sizeSlider.addEventListener('input', function() {
+                appState.brushSize = parseInt(this.value);
+                sizeDisplay.textContent = this.value + 'px';
+            });
+            
+            // Action buttons
+            document.getElementById('undoBtn').addEventListener('click', undo);
+            document.getElementById('redoBtn').addEventListener('click', redo);
+            document.getElementById('clearCanvas').addEventListener('click', clearCanvas);
+            
+            // Save initial state
+            saveState();
+        }
+
+        function resizeCanvas() {
+            if (!canvas) return;
+            
+            const container = canvas.parentElement;
+            const rect = container.getBoundingClientRect();
+            
+            // Set display size
+            canvas.style.width = '100%';
+            canvas.style.height = 'auto';
+            
+            // Maintain aspect ratio
+            const aspectRatio = 800 / 600;
+            const containerWidth = rect.width;
+            const containerHeight = containerWidth / aspectRatio;
+            
+            canvas.width = 800;
+            canvas.height = 600;
+            canvas.style.height = containerHeight + 'px';
+            
+            // Reset canvas styles after resize
+            ctx.lineCap = 'round';
+            ctx.lineJoin = 'round';
+        }
+
+        function startDrawing(e) {
+            isDrawing = true;
+            [lastX, lastY] = getMousePos(e);
+        }
+
+        function draw(e) {
+            if (!isDrawing) return;
+            
+            const [currentX, currentY] = getMousePos(e);
+            
+            ctx.globalCompositeOperation = appState.currentTool === 'eraser' ? 'destination-out' : 'source-over';
+            
+            // Set drawing properties based on tool
+            switch (appState.currentTool) {
+                case 'pen':
+                    ctx.strokeStyle = '#000000';
+                    ctx.lineWidth = appState.brushSize;
+                    ctx.globalAlpha = 1;
+                    break;
+                case 'marker':
+                    ctx.strokeStyle = '#666666';
+                    ctx.lineWidth = appState.brushSize * 2;
+                    ctx.globalAlpha = 0.7;
+                    break;
+                case 'highlight':
+                    ctx.strokeStyle = '#ffff00';
+                    ctx.lineWidth = appState.brushSize * 3;
+                    ctx.globalAlpha = 0.3;
+                    break;
+                case 'eraser':
+                    ctx.lineWidth = appState.brushSize * 2;
+                    break;
+            }
+            
+            ctx.beginPath();
+            ctx.moveTo(lastX, lastY);
+            ctx.lineTo(currentX, currentY);
+            ctx.stroke();
+            
+            [lastX, lastY] = [currentX, currentY];
+        }
+
+        function stopDrawing() {
+            if (!isDrawing) return;
+            isDrawing = false;
+            saveState();
+        }
+
+        function handleTouch(e) {
+            e.preventDefault();
+            const touch = e.touches[0];
+            const mouseEvent = new MouseEvent(e.type === 'touchstart' ? 'mousedown' : 
+                                            e.type === 'touchmove' ? 'mousemove' : 'mouseup', {
+                clientX: touch.clientX,
+                clientY: touch.clientY
+            });
+            canvas.dispatchEvent(mouseEvent);
+        }
+
+        function getMousePos(e) {
+            const rect = canvas.getBoundingClientRect();
+            const scaleX = canvas.width / rect.width;
+            const scaleY = canvas.height / rect.height;
+            
+            return [
+                (e.clientX - rect.left) * scaleX,
+                (e.clientY - rect.top) * scaleY
+            ];
+        }
+
+        function saveState() {
+            appState.historyStep++;
+            if (appState.historyStep < appState.drawingHistory.length) {
+                appState.drawingHistory.length = appState.historyStep;
+            }
+            appState.drawingHistory.push(canvas.toDataURL());
+            
+            // Limit history size
+            if (appState.drawingHistory.length > 20) {
+                appState.drawingHistory.shift();
+                appState.historyStep--;
+            }
+        }
+
+        function undo() {
+            if (appState.historyStep > 0) {
+                appState.historyStep--;
+                restoreState(appState.drawingHistory[appState.historyStep]);
+            }
+        }
+
+        function redo() {
+            if (appState.historyStep < appState.drawingHistory.length - 1) {
+                appState.historyStep++;
+                restoreState(appState.drawingHistory[appState.historyStep]);
+            }
+        }
+
+        function restoreState(dataURL) {
+            const img = new Image();
+            img.onload = function() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                ctx.drawImage(img, 0, 0);
+            };
+            img.src = dataURL;
+        }
+
+        function clearCanvas() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            saveState();
+        }
+
+        // Sample Data
+        function addSampleGoals() {
+            // Add some sample goals
+            appState.categories[0].goals.push(
+                { text: 'Complete OSCE preparation', completed: false, createdAt: new Date() },
+                { text: 'Study for Step 1 exam', completed: false, createdAt: new Date() }
+            );
+            
+            appState.categories[1].goals.push(
+                { text: 'Practice 3x per week', completed: true, createdAt: new Date() },
+                { text: 'Learn new submission technique', completed: false, createdAt: new Date() }
+            );
+            
+            appState.categories[3].goals.push(
+                { text: 'Hit the gym 5x per week', completed: false, createdAt: new Date() },
+                { text: 'Track daily nutrition', completed: true, createdAt: new Date() }
+            );
+            
+            // Add sample events
+            appState.events.push(
+                {
+                    id: 1,
+                    title: 'Jiu-Jitsu Training',
+                    category: 'Jiu-Jitsu',
+                    description: 'Evening training session',
+                    date: new Date(2025, 9, 18).toISOString(),
+                    createdAt: new Date().toISOString()
+                },
+                {
+                    id: 2,
+                    title: 'Study Session',
+                    category: 'Medical School',
+                    description: 'Cardiology review',
+                    date: new Date(2025, 9, 19).toISOString(),
+                    createdAt: new Date().toISOString()
+                }
+            );
+        }
+
+        // Window resize handler
+        window.addEventListener('resize', function() {
+            resizeCanvas();
+        });
+    </script>
+</body>
+</html>
