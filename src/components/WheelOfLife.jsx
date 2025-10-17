@@ -10,14 +10,14 @@ export default function WheelOfLife() {
   const [activeTab, setActiveTab] = useState('wheel');
   const [appState, setAppState] = useState({
     categories: [
-      { name: 'Medical School', color: '#A8D8EA', goals: [] },
-      { name: 'Jiu-Jitsu', color: '#FFB6B9', goals: [] },
-      { name: 'Research', color: '#C7CEEA', goals: [] },
-      { name: 'Health & Fitness', color: '#B8E6B8', goals: [] },
-      { name: 'Relationships', color: '#FFDCE5', goals: [] },
-      { name: 'Faith & Character', color: '#FFE5B4', goals: [] },
-      { name: 'Finance', color: '#B5EAD7', goals: [] },
-      { name: 'Personal Growth', color: '#FFDAB9', goals: [] }
+      { name: 'Medical School', color: '#A8D8EA', value: 7, goals: [] },
+      { name: 'Jiu-Jitsu', color: '#FFB6B9', value: 4, goals: [] },
+      { name: 'Research', color: '#C7CEEA', value: 5, goals: [] },
+      { name: 'Health & Fitness', color: '#B8E6B8', value: 8, goals: [] },
+      { name: 'Relationships', color: '#FFDCE5', value: 6, goals: [] },
+      { name: 'Faith & Character', color: '#FFE5B4', value: 7, goals: [] },
+      { name: 'Finance', color: '#B5EAD7', value: 3, goals: [] },
+      { name: 'Personal Growth', color: '#FFDAB9', value: 5, goals: [] }
     ],
     events: [],
     currentDate: new Date(2025, 9, 17), // October 17, 2025
