@@ -1098,6 +1098,8 @@ select.form-control {
             100% { transform: rotate(360deg); }
         }
     </style>
+    <!-- Inline SVG favicon to avoid browser requesting /favicon.ico and getting 404 -->
+    <link rel="icon" href='data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="%238884d8"/><text x="50" y="58" font-size="52" text-anchor="middle" fill="white" font-family="sans-serif">W</text></svg>'>
 </head>
 <body>
     <div class="loader-container">
@@ -1271,6 +1273,7 @@ select.form-control {
         </div>
     </div>
 
-    <script src="src/app.js" defer></script>
+    <!-- Load the legacy app script from the absolute /src path so Vite serves it reliably -->
+    <script src="/src/app.js" defer></script>
 </body>
 </html>
